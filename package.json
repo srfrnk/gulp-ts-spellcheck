@@ -1,0 +1,50 @@
+{
+  "name": "gulp-ts-spellcheck",
+  "version": "1.0.0",
+  "description": "spellcheck typescript code with gulp",
+  "main": "index.js",
+  "engines": {
+    "node": "^8"
+  },
+  "scripts": {
+    "tslint": "gulp tslint",
+    "tsc": "gulp tsc",
+    "jest": "gulp jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srfrnk/gulp-ts-spellcheck.git"
+  },
+  "keywords": [
+    "gulp",
+    "typescript",
+    "spell",
+    "check"
+  ],
+  "author": "srfrnk@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/srfrnk/gulp-ts-spellcheck/issues"
+  },
+  "homepage": "https://github.com/srfrnk/gulp-ts-spellcheck#readme",
+  "devDependencies": {
+    "@types/node": "^10.5.4",
+    "event-stream": "^3.3.4",
+    "from2": "^2.3.0",
+    "gulp": "^3.9.1",
+    "gulp-dest": "^0.2.3",
+    "gulp-jest": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-tslint": "^8.1.3",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "gulp-util": "^3.0.8",
+    "jest": "^23.4.2",
+    "jest-cli": "^23.4.2",
+    "through2": "^2.0.3",
+    "ts-jest": "^23.0.1",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2",
+    "vinyl": "^2.2.0"
+  }
+}
