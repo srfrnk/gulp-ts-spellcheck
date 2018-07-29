@@ -8,9 +8,9 @@ install:
 - npm install
 before_script:
 - npm run tslint
+- npm run tsc
 - npm run jest
 script:
-- npm run tsc
 after_success:
 after_failure:
 deploy:
