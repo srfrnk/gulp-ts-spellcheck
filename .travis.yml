@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '9'
+branches:
+  only:
+  - master
+install:
+- npm install
+before_script:
+- npm run tslint
+- npm run jest
+script:
+- npm run tsc
+after_success:
+after_failure:
+deploy:
+after_deploy:
+notifications:
+  email:
+    on_success: change # default: change
+    on_failure: always # default: always

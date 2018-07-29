@@ -11,7 +11,7 @@ export default class SpellChecker {
 
     public async process(input: string): Promise<string> {
         const parsed = await this.parser.parseSource(input);
-        console.log(parsed.declarations);
+        // console.log(parsed.declarations);
         return '';
     }
 }
