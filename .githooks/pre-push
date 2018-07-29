@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 npm run tslint
 if [ "$?" != "0" ]; then
