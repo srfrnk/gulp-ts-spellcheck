@@ -29,7 +29,6 @@
   "homepage": "https://github.com/srfrnk/gulp-ts-spellcheck#readme",
   "devDependencies": {
     "@types/node": "^10.5.4",
-    "event-stream": "^3.3.4",
     "from2": "^2.3.0",
     "gulp": "^3.9.1",
     "gulp-dest": "^0.2.3",
