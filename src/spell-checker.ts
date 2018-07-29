@@ -1,11 +1,17 @@
+import { TypescriptParser } from 'typescript-parser';
+
 export default class SpellChecker {
     private dict: string[];
+    private parser: TypescriptParser;
 
-    constructor({ dict: string }: any) {
-        this.dict = this.dict;
+    constructor(options: any = {}) {
+        this.dict = options.dict || '';
+        this.parser = new TypescriptParser();
     }
 
-    public process(input: string): string {
+    public async process(input: string): Promise<string> {
+        const parsed = await this.parser.parseSource(input);
+        console.log(parsed.declarations);
         return '';
     }
 }

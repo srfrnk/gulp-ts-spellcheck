@@ -11,19 +11,18 @@ const PluginError = gutil.PluginError;
 export default function gulpPlugin(options: any) {
     const processor = new SpellChecker(options);
 
-    return through.obj(function(file: any, enc: any, callback: any) {
+    return through.obj(async function(file: any, enc: any, callback: any) {
         try {
             // Empty file and directory not supported
             if (file === null || file.isDirectory()) {
                 this.push(file);
                 return callback();
             }
-
             const isBuffer = file.isBuffer();
             if (isBuffer) {
                 const aFile = new gutil.File();
                 aFile.path = file.path;
-                aFile.contents = new Buffer(processor.process(file.contents));
+                aFile.contents = new Buffer(await processor.process(file.contents.toString('utf8')));
                 callback(null, aFile);
             } else {
                 this.emit('error', new PluginError(PLUGIN_NAME, 'Only Buffer format is supported'));
