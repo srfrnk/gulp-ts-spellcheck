@@ -6,8 +6,12 @@ const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('tslint', (done) => {
     return gulp.src('src/**/*.ts')
-        .on('error', function (err) { done(err); })
-        .pipe(tslint({ formatter: 'prose' }))
+        .on('error', function (err) {
+            done(err);
+        })
+        .pipe(tslint({
+            formatter: 'prose'
+        }))
         .pipe(tslint.report());
 });
 
@@ -16,7 +20,9 @@ gulp.task('tsc', function (done) {
     return tsProject.src()
         .pipe(sourcemaps.init())
         .pipe(tsProject())
-        .on('error', function (err) { done(err); })
+        .on('error', function (err) {
+            done(err);
+        })
         .js
         .pipe(sourcemaps.write(''))
         .pipe(gulp.dest('build'));
@@ -24,6 +30,18 @@ gulp.task('tsc', function (done) {
 
 gulp.task('jest', (done) => {
     return gulp.src('')
-        .on('error', function (err) { done(err); })
+        .on('error', function (err) {
+            done(err);
+        })
         .pipe(jest({}));
+});
+
+const spellCheck = require('./build/index').default;
+gulp.task('spellCheck', (done) => {
+    return gulp.src('test/test-files/*.ts')
+        .on('error', function (err) {
+            done(err);
+        })
+        .pipe(spellCheck({}))
+        .pipe(spellCheck.report({}));
 });
