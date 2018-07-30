@@ -36,8 +36,8 @@ gulp.task('jest', (done) => {
         .pipe(jest({}));
 });
 
-const spellCheck = require('./build/index').default;
 gulp.task('spellCheck', (done) => {
+    const spellCheck = require('./build/index').default;
     return gulp.src('test/test-files/*.ts')
         .on('error', function (err) {
             done(err);
