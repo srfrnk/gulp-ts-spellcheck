@@ -14,6 +14,7 @@ export default class SpellChecker {
         const contents = (inputFile.contents as Buffer).toString('utf8');
         const parsed = await this.parser.parseSource(contents);
         outputFile.errors = [];
+        outputFile.contents = new Buffer('');
         parsed.declarations.forEach((dec) => {
             outputFile.errors.push(dec.name);
         });
