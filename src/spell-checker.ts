@@ -1,5 +1,8 @@
 import { TypescriptParser } from 'typescript-parser';
 import * as File from 'vinyl';
+import IError from './error';
+// tslint:disable-next-line:no-var-requires
+const getLineFromPos = require('get-line-from-pos');
 
 export default class SpellChecker {
     private dict: string[];
@@ -16,7 +19,14 @@ export default class SpellChecker {
         outputFile.errors = [];
         outputFile.contents = new Buffer('');
         parsed.declarations.forEach((dec) => {
-            outputFile.errors.push(dec.name);
+            const error: IError = {
+                name: dec.name,
+                line: getLineFromPos(contents, dec.start),
+            };
+            outputFile.errors.push(error);
         });
     }
 }
+
+
+

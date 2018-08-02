@@ -8,3 +8,6 @@ compile: FORCE
 
 jest: FORCE compile
 	npm run jest
+
+spell: FORCE compile
+	npx gulp spellCheck
