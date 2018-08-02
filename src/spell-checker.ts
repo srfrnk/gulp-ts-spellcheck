@@ -46,6 +46,6 @@ export default class SpellChecker {
         error.line = line.line + 1;
         error.column = line.column + 1;
 
-        console.log(declaration);
+        // console.log(declaration);
     }
 }
