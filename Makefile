@@ -1,13 +1,13 @@
 FORCE:
 
-tsint: FORCE
+tslint: FORCE
 	npm run tslint
 
-compile: FORCE
+tsc: FORCE
 	npm run tsc
 
-jest: FORCE compile
+jest: FORCE tsc
 	npm run jest
 
-spell: FORCE compile
+spell: FORCE tsc
 	npx gulp spellCheck

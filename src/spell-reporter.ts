@@ -8,7 +8,8 @@ export default class SpellReporter {
     constructor(options: any = {}) { /**/ }
 
     public reportFile(file: File, through: any) {
-        this.errors.splice(this.errors.length, 0, ...file.errors.map((error: IError) => `${file.path}:${error.line} -> ${error.name}`));
+        this.errors.splice(this.errors.length, 0, ...file.errors
+            .map((error: IError) => `${file.path}[${error.line},${error.column}]: ${error.name}`));
     }
 
     public error(through: any): string {

@@ -30,6 +30,7 @@
   "homepage": "https://github.com/srfrnk/gulp-ts-spellcheck#readme",
   "devDependencies": {
     "@types/gulp-util": "^3.0.34",
+    "@types/jest": "^23.3.1",
     "@types/node": "^10.5.4",
     "@types/vinyl": "^2.0.2",
     "gulp": "^3.9.1",
