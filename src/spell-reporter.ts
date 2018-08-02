@@ -1,6 +1,7 @@
 import * as File from 'vinyl';
 import { PluginError } from 'gulp-util';
-import IError from './error';
+import IToken from './token';
+import LineParser from './LineParser';
 
 export default class SpellReporter {
     private errors: string[] = [];
@@ -8,8 +9,13 @@ export default class SpellReporter {
     constructor(options: any = {}) { /**/ }
 
     public reportFile(file: File, through: any) {
+
+
         this.errors.splice(this.errors.length, 0, ...file.errors
-            .map((error: IError) => `${file.path}[${error.line},${error.column}]: ${error.name}`));
+            .map((error: IToken) => {
+                const line = (file.lineParser as LineParser).findLine(error.position);
+                return `${error.path}[${line.line + 1},${line.column + 1}]: ${error.name}`;
+            }));
     }
 
     public error(through: any): string {

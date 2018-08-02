@@ -1,6 +1,6 @@
 import { TypescriptParser, DeclarationIndex, Declaration, InterfaceDeclaration } from 'typescript-parser';
 import * as File from 'vinyl';
-import IError from './error';
+import IToken from './token';
 import LineParser from './LineParser';
 
 export default class SpellChecker {
@@ -17,35 +17,35 @@ export default class SpellChecker {
         const parsed = await this.parser.parseSource(contents);
         const lineParser = new LineParser(contents);
         outputFile.errors = [];
+        outputFile.lineParser = lineParser;
         outputFile.contents = new Buffer('');
         parsed.declarations.forEach((declaration) => {
-            this.processDeclaration(declaration, lineParser, outputFile.errors);
+            this.processDeclaration(inputFile.path, declaration, outputFile.errors);
         });
     }
 
-    private processDeclaration(declaration: Declaration, lineParser: LineParser, errors: IError[]): void {
-        const error: IError = {
+    private processDeclaration(path: string, declaration: Declaration, errors: IToken[]): void {
+        const token: IToken = {
+            path,
             name: declaration.name,
-            line: 0,
-            column: 0,
+            position: declaration.start,
         };
-        errors.push(error);
+        errors.push(token);
 
-        let position = declaration.start;
         if (declaration instanceof InterfaceDeclaration) {
-            position += 'interface '.length;
+            token.position += 'interface '.length;
+            if (token.name.startsWith('I')) {
+                token.name = token.name.slice(1);
+                token.position += 1;
+            }
+
             (declaration as InterfaceDeclaration).properties.forEach((declaration1) => {
-                this.processDeclaration(declaration1, lineParser, errors);
+                this.processDeclaration(path, declaration1, errors);
             });
             (declaration as InterfaceDeclaration).methods.forEach((declaration1) => {
-                this.processDeclaration(declaration1, lineParser, errors);
+                this.processDeclaration(path, declaration1, errors);
             });
         }
-
-        const line = lineParser.findLine(position);
-        error.line = line.line + 1;
-        error.column = line.column + 1;
-
         // console.log(declaration);
     }
 }
