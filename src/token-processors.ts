@@ -15,7 +15,6 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             token.name = token.name.slice(1);
             token.position += 1;
         }
-        console.log(declaration.fragment);
         return token;
     },
 
