@@ -8,9 +8,7 @@ export default class SpellReporter {
 
     constructor(options: any = {}) { /**/ }
 
-    public reportFile(file: File, through: any) {
-
-
+    public reportFile(file: File) {
         this.errors.splice(this.errors.length, 0, ...file.errors
             .map((error: IToken) => {
                 const line = (file.lineParser as LineParser).findLine(error.position);
@@ -18,7 +16,7 @@ export default class SpellReporter {
             }));
     }
 
-    public error(through: any): string {
+    public error(): string {
         if (this.errors.length > 0) {
             return `\nSpelling errors:\n${this.errors.join('\n')}`;
         } else {

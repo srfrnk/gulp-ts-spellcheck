@@ -42,11 +42,11 @@ export default function gulpPlugin(options: any) {
     const reporter = new SpellReporter(options);
     return through.obj({},
         function reportFailures(file: any, enc: any, callback: any) {
-            reporter.reportFile(file, this);
+            reporter.reportFile(file);
             callback(null, file);
         },
         function throwErrors(callback: any) {
-            const message = reporter.error(this);
+            const message = reporter.error();
             callback(!!message ? new PluginError(PLUGIN_NAME, message) : null);
         });
 };

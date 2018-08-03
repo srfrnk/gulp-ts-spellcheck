@@ -1,7 +1,10 @@
-import { TypescriptParser, DeclarationIndex, Declaration, InterfaceDeclaration } from 'typescript-parser';
+import { TypescriptParser, Declaration as TSDeclaration } from 'typescript-parser';
 import * as File from 'vinyl';
 import IToken from './token';
 import LineParser from './LineParser';
+import tokenProcessors from './token-processors';
+import declarationProcessors from './declaration-processors';
+import Declaration from './declaration';
 
 export default class SpellChecker {
     private dict: string[];
@@ -16,36 +19,53 @@ export default class SpellChecker {
         const contents = (inputFile.contents as Buffer).toString('utf8');
         const parsed = await this.parser.parseSource(contents);
         const lineParser = new LineParser(contents);
-        outputFile.errors = [];
         outputFile.lineParser = lineParser;
         outputFile.contents = new Buffer('');
-        parsed.declarations.forEach((declaration) => {
-            this.processDeclaration(inputFile.path, declaration, outputFile.errors);
-        });
+        const tokens = parsed.declarations
+            .map((declaration) => declaration as TSDeclaration & Declaration)
+            .map((declaration) => { declaration.fragment = contents.slice(declaration.start, declaration.end); return declaration; })
+            .reduce((declarations, declaration) =>
+                [...declarations, ...this.processDeclaration(declaration)], [])
+            .map((declaration) => { declaration.path = inputFile.path; return declaration; });
+
+        outputFile.errors = tokens.filter((token) => !this.spellCheckToken(token.name));
     }
 
-    private processDeclaration(path: string, declaration: Declaration, errors: IToken[]): void {
-        const token: IToken = {
-            path,
-            name: declaration.name,
-            position: declaration.start,
-        };
-        errors.push(token);
+    private processDeclaration(declaration: Declaration & TSDeclaration): IToken[] {
+        const type = Object.getPrototypeOf(declaration).constructor.name;
+        const token = this.processToken(type, declaration);
+        const subDeclarations = this.processSubDeclarations(type, declaration);
+        return [token, ...subDeclarations];
+    }
 
-        if (declaration instanceof InterfaceDeclaration) {
-            token.position += 'interface '.length;
-            if (token.name.startsWith('I')) {
-                token.name = token.name.slice(1);
-                token.position += 1;
-            }
-
-            (declaration as InterfaceDeclaration).properties.forEach((declaration1) => {
-                this.processDeclaration(path, declaration1, errors);
-            });
-            (declaration as InterfaceDeclaration).methods.forEach((declaration1) => {
-                this.processDeclaration(path, declaration1, errors);
-            });
+    private processToken(type: string, declaration: Declaration & TSDeclaration): IToken {
+        const tokenProcessor = tokenProcessors[type];
+        if (tokenProcessor) {
+            const token = tokenProcessor(declaration);
+            return token;
+        } else {
+            // tslint:disable-next-line:no-console
+            console.log(`Missing token processor for ${type}`);
+            return null;
         }
-        // console.log(declaration);
+    }
+
+    private processSubDeclarations(type: string, declaration: Declaration & TSDeclaration): IToken[] {
+        const declarationProcessor = declarationProcessors[type];
+        if (declarationProcessor) {
+            const subDeclarations = declarationProcessor(declaration)
+                .map((declaration1) => declaration1 as (Declaration & TSDeclaration));
+            return subDeclarations.reduce(
+                (declarations, declaration1) =>
+                    [...declarations, ...this.processDeclaration(declaration1)], []);
+        } else {
+            // tslint:disable-next-line:no-console
+            console.log(`Missing declaration processor for ${type}`);
+            return [];
+        }
+    }
+
+    private spellCheckToken(name: string): boolean {
+        return false;
     }
 }

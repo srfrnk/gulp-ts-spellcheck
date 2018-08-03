@@ -6,13 +6,13 @@
     "configurations": [{
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Debug",
             "program": "${workspaceFolder}/src/debug.ts",
             "outFiles": [
                 "${workspaceFolder}/build/**/*",
             ],
             "sourceMaps": true,
-            "preLaunchTask": "tsc"
+            "preLaunchTask": "gulp: tsc"
         },
         {
             "type": "node",
@@ -26,7 +26,7 @@
                 "${workspaceFolder}/build/**/*",
             ],
             "sourceMaps": true,
-            "preLaunchTask": "tsc"
+            "preLaunchTask": "gulp tsc"
        },
     ]
 }
