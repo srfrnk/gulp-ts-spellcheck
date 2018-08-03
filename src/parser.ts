@@ -24,7 +24,7 @@ export default class Parser {
             .map((declaration) => declaration as TSDeclaration & Declaration)
             .map((declaration) => { declaration.fragment = contents.slice(declaration.start, declaration.end); return declaration; })
             .reduce((declarations, declaration) =>
-                [...declarations, ...this.processDeclaration(declaration)], [])
+                [...declarations, ...this.processDeclaration(declaration)], [] as IToken[])
             .map((declaration) => { declaration.path = inputFile.path; return declaration; });
     }
 
@@ -32,10 +32,10 @@ export default class Parser {
         const type = Object.getPrototypeOf(declaration).constructor.name;
         const token = this.processToken(type, declaration);
         const subDeclarations = this.processSubDeclarations(type, declaration);
-        return token ? [token, ...subDeclarations] : subDeclarations;
+        return [...token, ...subDeclarations];
     }
 
-    private processToken(type: string, declaration: Declaration & TSDeclaration): IToken {
+    private processToken(type: string, declaration: Declaration & TSDeclaration): IToken[] {
         const tokenProcessor = tokenProcessors[type];
         if (tokenProcessor) {
             const token = tokenProcessor(declaration);
@@ -43,7 +43,7 @@ export default class Parser {
         } else {
             // tslint:disable-next-line:no-console
             console.log(`Missing token processor for ${type}`);
-            return null;
+            return [];
         }
     }
 

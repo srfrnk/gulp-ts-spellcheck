@@ -5,7 +5,7 @@ import {
 } from 'typescript-parser';
 import Declaration from './declaration';
 
-const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaration) => IToken } = {
+const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaration) => IToken[] } = {
     InterfaceDeclaration: (declaration: InterfaceDeclaration & Declaration) => {
         const token: IToken = {
             path: '',
@@ -16,7 +16,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             token.name = token.name.slice(1);
             token.position += 1;
         }
-        return token;
+        return [token];
     },
 
     ClassDeclaration: (declaration: ClassDeclaration & Declaration) => {
@@ -25,7 +25,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + 'class '.length,
         };
-        return token;
+        return [token];
     },
 
     PropertyDeclaration: (declaration: PropertyDeclaration & Declaration) => {
@@ -34,7 +34,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
-        return token;
+        return [token];
     },
 
     FunctionDeclaration: (declaration: FunctionDeclaration & Declaration) => {
@@ -43,11 +43,11 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + 'function '.length,
         };
-        return token;
+        return [token];
     },
 
     ConstructorDeclaration: (declaration: ConstructorDeclaration & Declaration) => {
-        return null;
+        return [];
     },
 
     MethodDeclaration: (declaration: MethodDeclaration & Declaration) => {
@@ -56,7 +56,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
-        return token;
+        return [token];
     },
 
     VariableDeclaration: (declaration: VariableDeclaration & Declaration) => {
@@ -65,7 +65,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
-        return token;
+        return [token];
     },
 
     ParameterDeclaration: (declaration: VariableDeclaration & Declaration) => {
@@ -74,7 +74,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
-        return token;
+        return [token];
     },
 };
 
