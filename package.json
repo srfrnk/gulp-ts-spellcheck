@@ -50,6 +50,7 @@
     "from2": "^2.3.0",
     "get-line-from-pos": "^1.0.0",
     "gulp-util": "^3.0.8",
+    "spellchecker": "^3.4.4",
     "through2": "^2.0.3",
     "typescript-parser": "^2.5.0",
     "vinyl": "^2.2.0"
