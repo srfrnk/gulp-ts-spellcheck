@@ -1,6 +1,7 @@
 import IToken from './token';
 import {
-    Declaration as TSDeclaration, InterfaceDeclaration, PropertyDeclaration, FunctionDeclaration, VariableDeclaration,
+    Declaration as TSDeclaration, InterfaceDeclaration, PropertyDeclaration, FunctionDeclaration,
+    VariableDeclaration, ClassDeclaration, MethodDeclaration, ConstructorDeclaration,
 } from 'typescript-parser';
 import Declaration from './declaration';
 
@@ -18,11 +19,20 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
         return token;
     },
 
+    ClassDeclaration: (declaration: ClassDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + 'class '.length,
+        };
+        return token;
+    },
+
     PropertyDeclaration: (declaration: PropertyDeclaration & Declaration) => {
         const token: IToken = {
             path: '',
             name: declaration.name,
-            position: declaration.start,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
         return token;
     },
@@ -36,11 +46,24 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
         return token;
     },
 
+    ConstructorDeclaration: (declaration: ConstructorDeclaration & Declaration) => {
+        return null;
+    },
+
+    MethodDeclaration: (declaration: MethodDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
+        };
+        return token;
+    },
+
     VariableDeclaration: (declaration: VariableDeclaration & Declaration) => {
         const token: IToken = {
             path: '',
             name: declaration.name,
-            position: declaration.start,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
         return token;
     },
@@ -49,7 +72,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
         const token: IToken = {
             path: '',
             name: declaration.name,
-            position: declaration.start,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
         return token;
     },

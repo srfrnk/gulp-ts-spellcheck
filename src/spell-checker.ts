@@ -35,7 +35,7 @@ export default class SpellChecker {
         const type = Object.getPrototypeOf(declaration).constructor.name;
         const token = this.processToken(type, declaration);
         const subDeclarations = this.processSubDeclarations(type, declaration);
-        return [token, ...subDeclarations];
+        return token ? [token, ...subDeclarations] : subDeclarations;
     }
 
     private processToken(type: string, declaration: Declaration & TSDeclaration): IToken {
@@ -54,7 +54,13 @@ export default class SpellChecker {
         const declarationProcessor = declarationProcessors[type];
         if (declarationProcessor) {
             const subDeclarations = declarationProcessor(declaration)
-                .map((declaration1) => declaration1 as (Declaration & TSDeclaration));
+                .map((declaration1) => declaration1 as (Declaration & TSDeclaration))
+                .map((declaration1) => {
+                    declaration1.fragment = declaration.fragment.slice(
+                        declaration1.start - declaration.start,
+                        declaration1.end - declaration.start);
+                    return declaration1;
+                });
             return subDeclarations.reduce(
                 (declarations, declaration1) =>
                     [...declarations, ...this.processDeclaration(declaration1)], []);
