@@ -5,10 +5,12 @@ interface ILinePosition {
 
 export default class LineParser {
     private _lines: number[];
+    private _totalLength: number;
 
     constructor(input: string) {
         const lineMatches = this.matchLines(input);
         this._lines = Array.from(lineMatches);
+        this._totalLength = input.length;
     }
 
     public findLine(idx: number): ILinePosition {
@@ -17,7 +19,11 @@ export default class LineParser {
                 return { line: i, column: idx - this._lines[i] };
             }
         }
-        return null;
+        if (idx < this._totalLength) {
+            return { line: this._lines.length - 1, column: idx - this._lines[this._lines.length - 1] };
+        } else {
+            return null;
+        }
     }
 
     public get lines(): number[] {

@@ -32,7 +32,7 @@ export default function gulpPlugin(options: IParserOptions & ISpellerOptions & I
                 callback();
             }
         } catch (error) {
-            this.emit('error', error);
+            this.emit('error', error.stack);
             callback();
         }
     }

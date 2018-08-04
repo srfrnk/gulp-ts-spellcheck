@@ -56,6 +56,7 @@ export default class Parser {
         if (declarationProcessor) {
             const subDeclarations = declarationProcessor(declaration)
                 .map((declaration1) => declaration1 as (Declaration & TSDeclaration))
+                .filter((declaration1) => declaration1)
                 .map((declaration1) => {
                     declaration1.fragment = declaration.fragment.slice(
                         declaration1.start - declaration.start,

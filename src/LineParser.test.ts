@@ -2,8 +2,8 @@ import './LineParser';
 import LineParser from './LineParser';
 
 describe('LineParser', () => {
-    it('should load', () => {
-        const lineParser = import('./LineParser');
+    it('should load', async () => {
+        const lineParser = await import('./LineParser');
         expect(lineParser).toBeDefined();
     });
 
@@ -29,6 +29,12 @@ describe('LineParser', () => {
         lineParser.lines.forEach((line) => {
             expect(input.slice(line, line + 4)).toEqual('test');
         });
+    });
+
+    it('should find from position with single line', () => {
+        const input = 'test line 1';
+        const lineParser = new LineParser(input);
+        expect(lineParser.findLine(5)).toEqual({ line: 0, column: 5 });
     });
 
     it('should find line from position', () => {
