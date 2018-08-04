@@ -26,7 +26,7 @@
                 "${workspaceFolder}/build/**/*",
             ],
             "sourceMaps": true,
-            "preLaunchTask": "gulp tsc"
+            "preLaunchTask": "gulp: tsc"
        },
     ]
 }

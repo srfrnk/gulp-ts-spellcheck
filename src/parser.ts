@@ -7,10 +7,14 @@ import declarationProcessors from './declaration-processors';
 import Declaration from './declaration';
 import OutputFile from './output-file';
 
+// tslint:disable-next-line:no-empty-interface
+export interface IParserOptions {
+}
+
 export default class Parser {
     private parser: TypescriptParser;
 
-    constructor(options: any = {}) {
+    constructor(options: IParserOptions = {}) {
         this.parser = new TypescriptParser();
     }
 

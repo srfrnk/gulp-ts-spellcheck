@@ -30,7 +30,8 @@ async function gulpProcess(plugin, inputString) {
 
 describe('gulp package', () => {
     it('should run', async () => {
-        const result = await gulpProcess(gulpTsSpellcheck(), fs.readFileSync('./test/test-files/correct.checked.ts').toString('utf8'));
+        const plugin = gulpTsSpellcheck({ dictionary: ['Func'] });
+        const result = await gulpProcess(plugin, fs.readFileSync('./test/test-files/correct.checked.ts').toString('utf8'));
         expect(result).toBe('');
     });
     /*

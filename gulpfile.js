@@ -42,6 +42,6 @@ gulp.task('spellCheck', (done) => {
         .on('error', function (err) {
             done(err);
         })
-        .pipe(spellCheck({}))
+        .pipe(spellCheck({ dictionary: ['Func'] }))
         .pipe(spellCheck.report({}));
 });

@@ -1,13 +1,13 @@
 import * as File from 'vinyl';
-import Parser from './parser';
+import Parser, { IParserOptions } from './parser';
 import OutputFile from './output-file';
-import Speller from './speller';
+import Speller, { ISpellerOptions } from './speller';
 
 export default class SpellChecker {
     private parser: Parser;
     private speller: Speller;
 
-    constructor(options: any = {}) {
+    constructor(options: IParserOptions & ISpellerOptions = { dictionary: [] }) {
         this.parser = new Parser(options);
         this.speller = new Speller(options);
     }

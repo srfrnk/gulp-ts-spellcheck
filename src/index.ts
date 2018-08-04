@@ -5,11 +5,13 @@ const through = require('through2');
 const gutil = require('gulp-util');
 
 import SpellChecker from './spell-checker';
-import SpellReporter from './spell-reporter';
+import SpellReporter, { IReporterOptions } from './spell-reporter';
+import { ISpellerOptions } from './speller';
+import { IParserOptions } from './parser';
 
 const PluginError = gutil.PluginError;
 
-export default function gulpPlugin(options: any) {
+export default function gulpPlugin(options: IParserOptions & ISpellerOptions & IReporterOptions) {
     const processor = new SpellChecker(options);
 
     async function fileProcessor(file: any, enc: any, callback: any) {
@@ -38,7 +40,7 @@ export default function gulpPlugin(options: any) {
     return through.obj(fileProcessor);
 }
 
-(gulpPlugin as any).report = (options: any) => {
+(gulpPlugin as any).report = (options: IReporterOptions) => {
     const reporter = new SpellReporter(options);
     return through.obj({},
         function reportFailures(file: any, enc: any, callback: any) {

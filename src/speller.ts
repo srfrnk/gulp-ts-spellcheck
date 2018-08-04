@@ -5,9 +5,15 @@ import IToken from './token';
 // tslint:disable-next-line:no-var-requires
 const spellChecker = require('spellchecker');
 
+export interface ISpellerOptions {
+    dictionary: string[];
+}
+
 export default class Speller {
-    constructor(options: any = {}) {
-        //
+    constructor(options: ISpellerOptions = { dictionary: [] }) {
+        (options.dictionary || []).forEach((word) => {
+            spellChecker.add(word.toLowerCase());
+        });
     }
 
     public async process(file: File & OutputFile): Promise<void> {
@@ -20,7 +26,7 @@ export default class Speller {
                 return token;
             })
             .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], [])
-            .filter((token) => !this.spellCheckToken(token.name));
+            .filter((token) => this.isSpellCheckError(token.name));
     }
 
     private splitToken(token: IToken): IToken[] {
@@ -52,7 +58,7 @@ export default class Speller {
         }
     }
 
-    private spellCheckToken(name: string): boolean {
-        return !spellChecker.isMisspelled(name);
+    private isSpellCheckError(name: string): boolean {
+        return spellChecker.isMisspelled(name.toLowerCase());
     }
 }

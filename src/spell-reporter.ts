@@ -3,10 +3,14 @@ import { PluginError } from 'gulp-util';
 import IToken from './token';
 import LineParser from './LineParser';
 
+// tslint:disable-next-line:no-empty-interface
+export interface IReporterOptions {
+}
+
 export default class SpellReporter {
     private errors: string[] = [];
 
-    constructor(options: any = {}) { /**/ }
+    constructor(options: IReporterOptions = {}) { /**/ }
 
     public reportFile(file: File) {
         this.errors.splice(this.errors.length, 0, ...file.errors

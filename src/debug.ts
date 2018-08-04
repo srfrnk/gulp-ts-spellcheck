@@ -5,7 +5,7 @@ import SpellReporter from './spell-reporter';
 import OutputFile from './output-file';
 
 async function debug() {
-    const spellChecker = new SpellChecker();
+    const spellChecker = new SpellChecker({ dictionary: ['Func'] });
     const spellReporter = new SpellReporter();
 
     const data = fs.readFileSync('./test/test-files/correct.checked.ts', 'utf8');
