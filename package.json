@@ -10,7 +10,8 @@
     "preinstall": "cp ./.githooks/* .git/hooks",
     "tslint": "gulp tslint",
     "tsc": "gulp tsc",
-    "jest": "gulp jest"
+    "jest": "gulp jest",
+    "tsc-jest":"npm run tsc jest"
   },
   "repository": {
     "type": "git",

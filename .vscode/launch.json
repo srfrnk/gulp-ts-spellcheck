@@ -27,6 +27,6 @@
             ],
             "sourceMaps": true,
             "preLaunchTask": "gulp: tsc"
-       },
+        },
     ]
 }

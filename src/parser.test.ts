@@ -55,26 +55,43 @@ describe('Parser', () => {
         return output.tokens;
     }
 
-    async function testInput(contents: string, expected: IToken[]): Promise<void> {
-        expect(await runInput(contents)).toEqual(expected);
+    async function testInputForEqual(contents: string, expected: IToken[]): Promise<void> {
+        await testInput(contents, async (matcher) => matcher.toEqual(expected));
+    }
+
+    type Tester = (matcher: jest.Matchers<IToken[]>) => Promise<any>;
+
+    async function testInput(contents: string, tester: Tester): Promise<void> {
+        const matcher = expect(await runInput(contents));
+        await tester(matcher);
     }
 
     describe('Language Constructs', () => {
         describe('Interface', () => {
             it('should parse interface name', async () => {
-                testInput(`interface IPerson {}`, [{ name: 'Person', path: '/file', position: 11 }]);
+                await testInputForEqual(`interface IPerson {}`, [{ name: 'Person', path: '/file', position: 11 }]);
+            });
+
+            it('should parse property name', async () => {
+                await testInput(`interface IPerson { var: string; }`, async (matcher) =>
+                    matcher.toContainEqual({ name: 'var', path: '/file', position: 20 }));
             });
         });
 
         describe('Class', () => {
             it('should parse class name', async () => {
-                testInput(`class Person {}`, [{ name: 'Person', path: '/file', position: 6 }]);
+                await testInputForEqual(`class Person {}`, [{ name: 'Person', path: '/file', position: 6 }]);
+            });
+
+            it('should parse property name', async () => {
+                await testInput(`class Person { public var: string; }`, async (matcher) =>
+                    matcher.toContainEqual({ name: 'var', path: '/file', position: 22 }));
             });
         });
 
         describe('Function', () => {
             it('should parse regular function name', async () => {
-                testInput(`function Foo(){}`, [{ name: 'Foo', path: '/file', position: 9 }]);
+                await testInputForEqual(`function Foo(){}`, [{ name: 'Foo', path: '/file', position: 9 }]);
             });
         });
     });
