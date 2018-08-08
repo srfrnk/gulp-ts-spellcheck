@@ -17,7 +17,7 @@ export default class Speller {
     }
 
     public async process(file: File & OutputFile): Promise<void> {
-        file.errors = file.tokens
+        file.splitTokens = file.tokens
             .map((token) => {
                 if (token.name.startsWith('_')) {
                     token.name = token.name.slice(1);
@@ -25,7 +25,9 @@ export default class Speller {
                 }
                 return token;
             })
-            .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], [])
+            .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], []);
+
+        file.errors = file.splitTokens
             .filter((token) => this.isSpellCheckError(token.name));
     }
 

@@ -5,5 +5,6 @@ import IToken from './token';
 export default interface OutputFile {
     lineParser: LineParser;
     tokens: IToken[];
+    splitTokens: IToken[];
     errors: IToken[];
 }
