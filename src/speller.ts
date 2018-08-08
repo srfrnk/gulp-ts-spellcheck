@@ -18,20 +18,26 @@ export default class Speller {
 
     public async process(file: File & OutputFile): Promise<void> {
         file.splitTokens = file.tokens
-            .map((token) => {
-                if (token.name.startsWith('_')) {
-                    token.name = token.name.slice(1);
-                    token.position++;
-                }
-                return token;
-            })
-            .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], []);
+            .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], [])
+            .filter((token) => token.name !== '');
 
         file.errors = file.splitTokens
             .filter((token) => this.isSpellCheckError(token.name));
     }
 
+    private trimToken(token: IToken) {
+        const matches = /^([^a-zA-Z]+).*$/.exec(token.name);
+        if (matches && matches.length > 1) {
+            const skip = matches[1].length;
+            token.name = token.name.slice(skip);
+            token.position += skip;
+        }
+
+        return token;
+    }
+
     private splitToken(token: IToken): IToken[] {
+        token = this.trimToken(token);
         if (/^[a-z]*$/.test(token.name) ||
             /^[A-Z]*$/.test(token.name) ||
             /^[A-Z][a-z]*$/.test(token.name)

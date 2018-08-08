@@ -64,6 +64,100 @@ describe('Speller', () => {
                 { name: 'Bar', path: '/file', position: 13 }]);
         });
 
+        it('should split doubleWord', async () => {
+            await testTokensForEqual([{ name: 'fooBar', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 13 }]);
+        });
+
+        it('should split _DoubleWord', async () => {
+            await testTokensForEqual([{ name: '_FooBar', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 11 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split _doubleWord', async () => {
+            await testTokensForEqual([{ name: '_fooBar', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 11 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split DoubleWord_', async () => {
+            await testTokensForEqual([{ name: 'FooBar_', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 13 }]);
+        });
+
+        it('should split doubleWord_', async () => {
+            await testTokensForEqual([{ name: 'fooBar_', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 13 }]);
+        });
+
+        it('should split Double_Word', async () => {
+            await testTokensForEqual([{ name: 'Foo_Bar', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split double_Word', async () => {
+            await testTokensForEqual([{ name: 'foo_Bar', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split Double1Word', async () => {
+            await testTokensForEqual([{ name: 'Foo1Bar', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split double1Word', async () => {
+            await testTokensForEqual([{ name: 'foo1Bar', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split double1word', async () => {
+            await testTokensForEqual([{ name: 'foo1bar', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'bar', path: '/file', position: 14 }]);
+        });
+
+        it('should split TripleWordWord', async () => {
+            await testTokensForEqual([{ name: 'FooBarFoo', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 13 },
+                { name: 'Foo', path: '/file', position: 16 }]);
+        });
+
+        it('should split tripleWordWord', async () => {
+            await testTokensForEqual([{ name: 'fooBarFoo', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 13 },
+                { name: 'Foo', path: '/file', position: 16 }]);
+        });
+
+        it('should split Triple_Word_Word', async () => {
+            await testTokensForEqual([{ name: 'Foo_Bar_Foo', path: '/file', position: 10 }],
+                [{ name: 'Foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 },
+                { name: 'Foo', path: '/file', position: 18 }]);
+        });
+
+        it('should split triple_word_word', async () => {
+            await testTokensForEqual([{ name: 'foo_bar_foo', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'bar', path: '/file', position: 14 },
+                { name: 'foo', path: '/file', position: 18 }]);
+        });
+
+        it('should split triple_Word_word', async () => {
+            await testTokensForEqual([{ name: 'foo_Bar_foo', path: '/file', position: 10 }],
+                [{ name: 'foo', path: '/file', position: 10 },
+                { name: 'Bar', path: '/file', position: 14 },
+                { name: 'foo', path: '/file', position: 18 }]);
+        });
     });
 });
 
