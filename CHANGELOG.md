@@ -1,0 +1,42 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="1.0.0"></a>
+# 1.0.0 (2018-08-09)
+
+
+### Bug Fixes
+
+* added speller tests ([9e311b0](https://github.com/srfrnk/gulp-ts-spellcheck/commit/9e311b0))
+* bash not sh for pre-push hook ([1bc0f69](https://github.com/srfrnk/gulp-ts-spellcheck/commit/1bc0f69))
+* build ([e05f59f](https://github.com/srfrnk/gulp-ts-spellcheck/commit/e05f59f))
+* gulp jest ([915683c](https://github.com/srfrnk/gulp-ts-spellcheck/commit/915683c))
+* gulp tests ([543891f](https://github.com/srfrnk/gulp-ts-spellcheck/commit/543891f))
+* more tests ([2ff917f](https://github.com/srfrnk/gulp-ts-spellcheck/commit/2ff917f))
+* ready for tests ([cfd5799](https://github.com/srfrnk/gulp-ts-spellcheck/commit/cfd5799))
+* some refactoring ([55de6e6](https://github.com/srfrnk/gulp-ts-spellcheck/commit/55de6e6))
+* spell error tests added ([456fa4b](https://github.com/srfrnk/gulp-ts-spellcheck/commit/456fa4b))
+* spell tests ([f93a15e](https://github.com/srfrnk/gulp-ts-spellcheck/commit/f93a15e))
+* test failed ([6b35457](https://github.com/srfrnk/gulp-ts-spellcheck/commit/6b35457))
+* travis ([6b58c21](https://github.com/srfrnk/gulp-ts-spellcheck/commit/6b58c21))
+* travis ([e0c4482](https://github.com/srfrnk/gulp-ts-spellcheck/commit/e0c4482))
+* vulnerabilities ([aa3b378](https://github.com/srfrnk/gulp-ts-spellcheck/commit/aa3b378))
+
+
+### Features
+
+* added class for spell checker ([f08fcce](https://github.com/srfrnk/gulp-ts-spellcheck/commit/f08fcce))
+* added parser ([40ec6be](https://github.com/srfrnk/gulp-ts-spellcheck/commit/40ec6be))
+* added reporting ([95e1964](https://github.com/srfrnk/gulp-ts-spellcheck/commit/95e1964))
+* added tests + bug fixes ([4e468a9](https://github.com/srfrnk/gulp-ts-spellcheck/commit/4e468a9))
+* added travis int. ([9f84818](https://github.com/srfrnk/gulp-ts-spellcheck/commit/9f84818))
+* almost done ([3c2ed1e](https://github.com/srfrnk/gulp-ts-spellcheck/commit/3c2ed1e))
+* basic stuff ([a887204](https://github.com/srfrnk/gulp-ts-spellcheck/commit/a887204))
+* before adding speller ([17b577a](https://github.com/srfrnk/gulp-ts-spellcheck/commit/17b577a))
+* check errors ([063416e](https://github.com/srfrnk/gulp-ts-spellcheck/commit/063416e))
+* checks...needs options. ([1e49ff6](https://github.com/srfrnk/gulp-ts-spellcheck/commit/1e49ff6))
+* gen. test ([ed284d1](https://github.com/srfrnk/gulp-ts-spellcheck/commit/ed284d1))
+* more.... ([9bc794b](https://github.com/srfrnk/gulp-ts-spellcheck/commit/9bc794b))
+* process more tokens ([d9d8d7b](https://github.com/srfrnk/gulp-ts-spellcheck/commit/d9d8d7b))
+* reporter format ([0e86976](https://github.com/srfrnk/gulp-ts-spellcheck/commit/0e86976))
