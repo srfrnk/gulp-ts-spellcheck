@@ -13,7 +13,7 @@
     "jest": "gulp jest",
     "tsc-jest": "npm run tsc jest",
     "release": "standard-version",
-    "publish": "(git push --follow-tags origin master) && (npm publish)"
+    "publish-release": "(git push --follow-tags origin master) && (npm publish)"
   },
   "repository": {
     "type": "git",
