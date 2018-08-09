@@ -6,6 +6,7 @@ import tokenProcessors from './token-processors';
 import declarationProcessors from './declaration-processors';
 import Declaration from './declaration';
 import OutputFile from './output-file';
+import * as util from 'util';
 
 // tslint:disable-next-line:no-empty-interface
 export interface IParserOptions {
@@ -46,7 +47,7 @@ export default class Parser {
             return token;
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing token processor for ${type}: ${JSON.stringify(declaration)}`);
+            console.log(`Missing token processor for ${type}: ${util.inspect(declaration)}`);
             return [];
         }
     }
@@ -68,7 +69,7 @@ export default class Parser {
                     [...declarations, ...this.processDeclaration(declaration1)], []);
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing declaration processor for ${type}: ${JSON.stringify(declaration)}`);
+            console.log(`Missing declaration processor for ${type}: ${util.inspect(declaration)}`);
             return [];
         }
     }
