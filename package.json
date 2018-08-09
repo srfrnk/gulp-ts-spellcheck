@@ -7,9 +7,7 @@
     "node": "^8"
   },
   "scripts": {
-    "postinstall-dev": "cp ./.githooks/* .git/hooks",
-    "postinstall-production": "",
-    "postinstall": "if-env NODE_ENV=production && npm run postinstall-production || npm run postinstall-dev",
+    "postinstall": "(cp ./.githooks/* .git/hooks) || true",
     "tslint": "gulp tslint",
     "tsc": "gulp tsc",
     "jest": "gulp jest",
@@ -56,7 +54,6 @@
     "from2": "^2.3.0",
     "get-line-from-pos": "^1.0.0",
     "gulp-util": "^3.0.8",
-    "if-env": "^1.0.4",
     "spellchecker": "^3.4.4",
     "through2": "^2.0.3",
     "typescript-parser": "^2.5.0",
