@@ -6,10 +6,10 @@ tslint: FORCE
 tsc: FORCE
 	npm run tsc
 
-jest: FORCE tsc
+jest: tsc
 	npm run jest
 
-spell: FORCE tsc
+spell: tsc
 	npx gulp spellCheck
 
 release: tslint tsc jest
