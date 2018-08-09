@@ -5,6 +5,10 @@ import {
     ClassDeclaration,
     ConstructorDeclaration,
     MethodDeclaration,
+    DefaultDeclaration,
+    GetterDeclaration,
+    EnumDeclaration,
+    TypeAliasDeclaration,
 } from 'typescript-parser';
 import Declaration from './declaration';
 
@@ -31,6 +35,16 @@ const declarationProcessors: { [key: string]: (declaration: DeclarationMixed) =>
     VariableDeclaration: (declaration: Declaration & VariableDeclaration) => [],
 
     ParameterDeclaration: (declaration: Declaration & ParameterDeclaration) => [],
+
+    DefaultDeclaration: (declaration: Declaration & DefaultDeclaration) =>
+        [declaration.exportedDeclaration],
+
+    GetterDeclaration: (declaration: Declaration & GetterDeclaration) => [],
+
+    EnumDeclaration: (declaration: Declaration & EnumDeclaration) => [],
+
+    TypeAliasDeclaration: (declaration: Declaration & TypeAliasDeclaration) => [],
+
 };
 
 

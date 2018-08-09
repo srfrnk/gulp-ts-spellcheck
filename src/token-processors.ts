@@ -1,7 +1,8 @@
 import IToken from './token';
 import {
     Declaration as TSDeclaration, InterfaceDeclaration, PropertyDeclaration, FunctionDeclaration,
-    VariableDeclaration, ClassDeclaration, MethodDeclaration, ConstructorDeclaration,
+    VariableDeclaration, ClassDeclaration, MethodDeclaration, ConstructorDeclaration, DefaultDeclaration,
+    GetterDeclaration, EnumDeclaration, TypeAliasDeclaration,
 } from 'typescript-parser';
 import Declaration from './declaration';
 
@@ -69,6 +70,37 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
     },
 
     ParameterDeclaration: (declaration: VariableDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
+        };
+        return [token];
+    },
+
+    DefaultDeclaration: (declaration: DefaultDeclaration & Declaration) => {
+        return [];
+    },
+
+    GetterDeclaration: (declaration: GetterDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
+        };
+        return [token];
+    },
+
+    EnumDeclaration: (declaration: EnumDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
+        };
+        return [token];
+    },
+
+    TypeAliasDeclaration: (declaration: TypeAliasDeclaration & Declaration) => {
         const token: IToken = {
             path: '',
             name: declaration.name,
