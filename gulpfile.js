@@ -29,7 +29,7 @@ gulp.task('tsc', function (done) {
 });
 
 gulp.task('jest', (done) => {
-    return gulp.src('')
+    return gulp.src('./src/*.test.ts')
         .on('error', function (err) {
             done(err);
         })
