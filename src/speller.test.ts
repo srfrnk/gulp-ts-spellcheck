@@ -1,4 +1,4 @@
-import Speller from './speller';
+import Speller, { ISpellerOptions } from './speller';
 import * as File from 'vinyl';
 import OutputFile from './output-file';
 import IToken from './token';
@@ -10,8 +10,8 @@ function fakeFile(contents: string = ''): File & OutputFile {
     return file;
 }
 
-async function runInput(tokens: IToken[]): Promise<File & OutputFile> {
-    const speller = new Speller();
+async function runInput(tokens: IToken[], options?: ISpellerOptions): Promise<File & OutputFile> {
+    const speller = new Speller(options);
     const file = fakeFile();
     file.tokens = tokens;
     await speller.process(file);
@@ -157,6 +157,23 @@ describe('Speller', () => {
                 [{ name: 'foo', path: '/file', position: 10 },
                 { name: 'Bar', path: '/file', position: 14 },
                 { name: 'foo', path: '/file', position: 18 }]);
+        });
+    });
+
+    describe('Spelling Errors', () => {
+        it('should pass correct word', async () => {
+            const output = await runInput([{ name: 'word', path: '/file', position: 0 }]);
+            expect(output.errors.length).toEqual(0);
+        });
+
+        it('should detect incorrect word', async () => {
+            const output = await runInput([{ name: 'wurd', path: '/file', position: 0 }]);
+            expect(output.errors).toEqual([{ name: 'wurd', path: '/file', position: 0 }]);
+        });
+
+        it('should pass incorrect word in dictionary', async () => {
+            const output = await runInput([{ name: 'wurd', path: '/file', position: 0 }], { dictionary: ['wurd'] });
+            expect(output.errors.length).toEqual(0);
         });
     });
 });
