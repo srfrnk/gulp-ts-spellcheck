@@ -36,8 +36,7 @@ const declarationProcessors: { [key: string]: (declaration: DeclarationMixed) =>
 
     ParameterDeclaration: (declaration: Declaration & ParameterDeclaration) => [],
 
-    DefaultDeclaration: (declaration: Declaration & DefaultDeclaration) =>
-        [declaration.exportedDeclaration],
+    DefaultDeclaration: (declaration: Declaration & DefaultDeclaration) => [/* declaration.exportedDeclaration // ts-parser bug*/],
 
     GetterDeclaration: (declaration: Declaration & GetterDeclaration) => [],
 

@@ -111,8 +111,14 @@ describe('Parser', () => {
         });
 
         describe('Enum', () => {
-            xit('should parse enum name', async () => {
-                await testInputForEqual(`enum Person {}`, [{ name: 'Person', path: '/file', position: 9 }]);
+            it('should parse enum name', async () => {
+                await testInputForEqual(`enum Person {}`, [{ name: 'Person', path: '/file', position: 5 }]);
+            });
+        });
+
+        describe('Misc', () => {
+            it('should parse default export', async () => {
+                await testInputForEqual(`export default class Person {}`, [{ name: 'Person', path: '/file', position: 6 }]);
             });
         });
     });
