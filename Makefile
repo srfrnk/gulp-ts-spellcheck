@@ -11,3 +11,9 @@ jest: FORCE tsc
 
 spell: FORCE tsc
 	npx gulp spellCheck
+
+release: FORCE
+	npm run release
+
+publish: release
+	npm run publish-release
