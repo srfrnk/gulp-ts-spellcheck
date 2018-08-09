@@ -12,7 +12,7 @@ jest: FORCE tsc
 spell: FORCE tsc
 	npx gulp spellCheck
 
-release: FORCE
+release: tslint tsc jest
 	npm run release
 
 publish: release
