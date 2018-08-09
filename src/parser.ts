@@ -46,7 +46,7 @@ export default class Parser {
             return token;
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing token processor for ${type}`);
+            console.log(`Missing token processor for ${type}: ${JSON.stringify(declaration)}`);
             return [];
         }
     }
@@ -68,7 +68,7 @@ export default class Parser {
                     [...declarations, ...this.processDeclaration(declaration1)], []);
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing declaration processor for ${type}`);
+            console.log(`Missing declaration processor for ${type}: ${JSON.stringify(declaration)}`);
             return [];
         }
     }
