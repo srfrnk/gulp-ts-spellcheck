@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.1.12...v1.2.0) (2018-08-10)
+
+
+### Features
+
+* added readme ([8097133](https://github.com/srfrnk/gulp-ts-spellcheck/commit/8097133))
+
+
+
 <a name="1.1.12"></a>
 ## [1.1.12](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.1.11...v1.1.12) (2018-08-09)
 
