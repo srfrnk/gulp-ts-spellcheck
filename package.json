@@ -11,6 +11,7 @@
     "tslint": "gulp tslint",
     "tsc": "gulp tsc",
     "jest": "gulp jest",
+    "coverage": "cat ./coverage/lcov.info | coveralls",
     "tsc-jest": "npm run tsc jest",
     "release": "standard-version",
     "publish-release": "(git push --follow-tags origin master) && (npm publish)"
@@ -36,6 +37,7 @@
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.7",
     "@types/vinyl": "^2.0.2",
+    "coveralls": "^3.0.2",
     "gulp": "^4.0.0",
     "gulp-dest": "^0.2.3",
     "gulp-jest": "^4.0.2",

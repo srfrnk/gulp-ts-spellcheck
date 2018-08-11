@@ -10,6 +10,7 @@ before_script:
 - npm run tslint
 - npm run tsc
 - npm run jest
+- npm run coverage
 script:
 after_success:
 after_failure:

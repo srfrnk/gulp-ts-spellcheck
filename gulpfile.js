@@ -33,7 +33,7 @@ gulp.task('jest', (done) => {
         .on('error', function (err) {
             done(err);
         })
-        .pipe(jest({}));
+        .pipe(jest({ collectCoverage: true }));
 });
 
 gulp.task('spellCheck', (done) => {
