@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/data/shahar/code/node-spellchecker"
 		}
 	],
 	"settings": {}

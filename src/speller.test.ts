@@ -1,3 +1,4 @@
+import * as path from 'path';
 import Speller, { ISpellerOptions } from './speller';
 import * as File from 'vinyl';
 import OutputFile from './output-file';
@@ -117,7 +118,6 @@ describe('Speller', () => {
                 [{ name: 'foo', path: '/file', position: 10 },
                 { name: 'Bar', path: '/file', position: 14 }]);
         });
-
         it('should split double1word', async () => {
             await testTokensForEqual([{ name: 'foo1bar', path: '/file', position: 10 }],
                 [{ name: 'foo', path: '/file', position: 10 },
@@ -175,6 +175,55 @@ describe('Speller', () => {
             const output = await runInput([{ name: 'wurd', path: '/file', position: 0 }], { dictionary: ['wurd'] });
             expect(output.errors.length).toEqual(0);
         });
+
+        describe('issue #1', () => {
+            beforeEach(() => {
+                jest.resetModuleRegistry(); // Ensure `spellchecker` is reloaded since it reads locale just once
+            });
+
+            it('should pass en-US word when no locale set', async () => {
+                const output = await runInput([{ name: 'formated', path: '/file', position: 0 }], {});
+                expect(output.errors.length).toEqual(0);
+            });
+
+            it('should throw error when en-US locale used but no en-US in dictionary path', () => {
+                expect(runInput([],
+                    { dictionaryPath: path.join(__dirname, '../test/dictionaries') })).rejects.toBeDefined();
+            });
+
+            it('should fail de-DE word when no locale set', async () => {
+                const output = await runInput([{ name: 'spezielles', path: '/file', position: 0 }], {});
+                expect(output.errors).toEqual([{ name: 'spezielles', path: '/file', position: 0 }]);
+            });
+
+            it('should fail en-UK word when no locale set', async () => {
+                const output = await runInput([{ name: 'colourist', path: '/file', position: 0 }], {});
+                expect(output.errors).toEqual([{ name: 'colourist', path: '/file', position: 0 }]);
+            });
+
+            it('should fail en-US word when locale set to en-GB', async () => {
+                const output = await runInput([{ name: 'colorist', path: '/file', position: 0 }],
+                    { locale: 'en_GB', dictionaryPath: path.join(__dirname, '../test/dictionaries') });
+                expect(output.errors).toEqual([{ name: 'colorist', path: '/file', position: 0 }]);
+            });
+
+            it('should fail en-US word when locale set to de-DE', async () => {
+                const output = await runInput([{ name: 'colorist', path: '/file', position: 0 }],
+                    { locale: 'de_DE', dictionaryPath: path.join(__dirname, '../test/dictionaries') });
+                expect(output.errors).toEqual([{ name: 'colorist', path: '/file', position: 0 }]);
+            });
+
+            it('should pass de-DE word when locale set to de-DE', async () => {
+                const output = await runInput([{ name: 'spezielles', path: '/file', position: 0 }],
+                    { locale: 'de_DE', dictionaryPath: path.join(__dirname, '../test/dictionaries') });
+                expect(output.errors.length).toEqual(0);
+            });
+
+            it('should pass en-UK word when locale set to en-GB', async () => {
+                const output = await runInput([{ name: 'colourist', path: '/file', position: 0 }],
+                    { locale: 'en_GB', dictionaryPath: path.join(__dirname, '../test/dictionaries') });
+                expect(output.errors.length).toEqual(0);
+            });
+        });
     });
 });
-

@@ -1,18 +1,31 @@
+import * as path from 'path';
 import * as File from 'vinyl';
 import OutputFile from './output-file';
 import IToken from './token';
 
-// tslint:disable-next-line:no-var-requires
-const spellChecker = require('spellchecker');
-
 export interface ISpellerOptions {
-    dictionary: string[];
+    dictionary?: string[];
+    locale?: string;
+    dictionaryPath?: string;
 }
 
 export default class Speller {
-    constructor(options: ISpellerOptions = { dictionary: [] }) {
-        (options.dictionary || []).forEach((word) => {
-            spellChecker.add(word.toLowerCase());
+    private spellChecker: any = null;
+
+    constructor(options: ISpellerOptions = {}) {
+        // Set default settings:
+        options.dictionary = options.dictionary || [];
+        options.locale = options.locale || 'en_US';
+        options.dictionaryPath = options.dictionaryPath || path.join(__dirname, '../dictionaries');
+
+        // Ensure `spellchecker` is reloaded since it reads locale just once:
+        process.env.LANG = options.locale;
+        process.env.DICT_PATH = options.dictionaryPath;
+        // tslint:disable-next-line:no-string-literal
+        delete require.cache['spellchecker'];
+        this.spellChecker = require('spellchecker');
+        options.dictionary.forEach((word) => {
+            this.spellChecker.add(word.toLowerCase());
         });
     }
 
@@ -67,6 +80,6 @@ export default class Speller {
     }
 
     private isSpellCheckError(name: string): boolean {
-        return spellChecker.isMisspelled(name.toLowerCase());
+        return this.spellChecker.isMisspelled(name.toLowerCase());
     }
 }
