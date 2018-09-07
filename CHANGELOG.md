@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.1...v1.3.2) (2018-08-27)
+
+
+
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.0...v1.3.1) (2018-08-27)
+
+
+### Bug Fixes
+
+* bug fixed - null check for token name ([938f716](https://github.com/srfrnk/gulp-ts-spellcheck/commit/938f716))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.2.0...v1.3.0) (2018-08-11)
 

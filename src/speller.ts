@@ -32,7 +32,7 @@ export default class Speller {
     public async process(file: File & OutputFile): Promise<void> {
         file.splitTokens = file.tokens
             .reduce((tokens, token) => [...tokens, ...this.splitToken(token)], [])
-            .filter((token) => token.name !== '');
+            .filter((token) => !!token.name && token.name !== '');
 
         file.errors = file.splitTokens
             .filter((token) => this.isSpellCheckError(token.name));
