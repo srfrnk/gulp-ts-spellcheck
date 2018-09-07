@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.3"></a>
+## [1.3.3](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.2...v1.3.3) (2018-09-07)
+
+
+### Bug Fixes
+
+* handled locale settings - fixed [#1](https://github.com/srfrnk/gulp-ts-spellcheck/issues/1) ([bba09d2](https://github.com/srfrnk/gulp-ts-spellcheck/commit/bba09d2))
+
+
+
 <a name="1.3.2"></a>
 ## [1.3.2](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.1...v1.3.2) (2018-08-27)
 
