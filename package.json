@@ -7,7 +7,6 @@
     "node": "^8"
   },
   "scripts": {
-    "postinstall": "(cp ./.githooks/* .git/hooks) || true",
     "tslint": "gulp tslint",
     "tsc": "gulp tsc",
     "jest": "gulp jest",

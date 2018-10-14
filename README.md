@@ -63,3 +63,10 @@ Then use it in your `gulpfile.js`:
     dictionary: require('./dictionary')
 }))
 ```
+
+# Contribution
+
+To help when developing run this:
+```bash
+cp ./.githooks/* .git/hooks
+```
