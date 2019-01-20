@@ -9,6 +9,7 @@ import {
     GetterDeclaration,
     EnumDeclaration,
     TypeAliasDeclaration,
+    ObjectBoundParameterDeclaration,
 } from 'typescript-parser';
 import Declaration from './declaration';
 
@@ -44,6 +45,7 @@ const declarationProcessors: { [key: string]: (declaration: DeclarationMixed) =>
 
     TypeAliasDeclaration: (declaration: Declaration & TypeAliasDeclaration) => [],
 
+    ObjectBoundParameterDeclaration: (declaration: Declaration & ObjectBoundParameterDeclaration) => [],
 };
 
 
