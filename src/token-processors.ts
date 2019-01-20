@@ -9,7 +9,7 @@ import Declaration from './declaration';
 const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaration) => IToken[] } = {
     InterfaceDeclaration: (declaration: InterfaceDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + 'interface '.length,
         };
@@ -22,7 +22,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     ClassDeclaration: (declaration: ClassDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + 'class '.length,
         };
@@ -31,7 +31,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     PropertyDeclaration: (declaration: PropertyDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -40,7 +40,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     FunctionDeclaration: (declaration: FunctionDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + 'function '.length,
         };
@@ -53,7 +53,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     MethodDeclaration: (declaration: MethodDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -62,7 +62,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     VariableDeclaration: (declaration: VariableDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -71,7 +71,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     ParameterDeclaration: (declaration: VariableDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -84,7 +84,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     GetterDeclaration: (declaration: GetterDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -93,7 +93,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     EnumDeclaration: (declaration: EnumDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -102,7 +102,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
 
     TypeAliasDeclaration: (declaration: TypeAliasDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };
@@ -110,7 +110,7 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
     },
     ObjectBoundParameterDeclaration: (declaration: ObjectBoundParameterDeclaration & Declaration) => {
         const token: IToken = {
-            path: '',
+            path: declaration.path,
             name: declaration.name,
             position: declaration.start + declaration.fragment.indexOf(declaration.name),
         };

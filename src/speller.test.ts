@@ -187,8 +187,10 @@ describe('Speller', () => {
             });
 
             it('should throw error when en-US locale used but no en-US in dictionary path', () => {
-                expect(runInput([],
-                    { dictionaryPath: path.join(__dirname, '../test/dictionaries') })).rejects.toBeDefined();
+                expect(runInput(
+                    [{ name: 'spezielles', path: '/file', position: 0 }],
+                    { dictionaryPath: path.join(__dirname, '../test/dictionaries') }))
+                    .rejects.toBeDefined();
             });
 
             it('should fail de-DE word when no locale set', async () => {
