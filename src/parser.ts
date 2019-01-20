@@ -27,16 +27,24 @@ export default class Parser {
         outputFile.contents = new Buffer('');
         outputFile.tokens = parsed.declarations
             .map((declaration) => declaration as TSDeclaration & Declaration)
-            .map((declaration) => { declaration.fragment = contents.slice(declaration.start, declaration.end); return declaration; })
+            .map((declaration) => {
+                declaration.path = inputFile.path;
+                declaration.fragment = contents.slice(declaration.start, declaration.end);
+                const linePosition = lineParser.findLine(declaration.start);
+                if (!!linePosition) {
+                    declaration.line = linePosition.line;
+                    declaration.column = linePosition.column;
+                }
+                return declaration;
+            })
             .reduce((declarations, declaration) =>
-                [...declarations, ...this.processDeclaration(declaration)], [] as IToken[])
-            .map((declaration) => { declaration.path = inputFile.path; return declaration; });
+                [...declarations, ...this.processDeclaration(declaration, lineParser)], [] as IToken[]);
     }
 
-    private processDeclaration(declaration: Declaration & TSDeclaration): IToken[] {
+    private processDeclaration(declaration: Declaration & TSDeclaration, lineParser: LineParser): IToken[] {
         const type = Object.getPrototypeOf(declaration).constructor.name;
         const token = this.processToken(type, declaration);
-        const subDeclarations = this.processSubDeclarations(type, declaration);
+        const subDeclarations = this.processSubDeclarations(type, declaration, lineParser);
         return [...token, ...subDeclarations];
     }
 
@@ -47,18 +55,25 @@ export default class Parser {
             return token;
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing token processor for ${type}: ${util.inspect(declaration)}`);
+            console.log(`Missing token processor for ${type}: ${declaration.path}:${declaration.line}:${declaration.column}
+                ${util.inspect(declaration)}`);
             return [];
         }
     }
 
-    private processSubDeclarations(type: string, declaration: Declaration & TSDeclaration): IToken[] {
+    private processSubDeclarations(type: string, declaration: Declaration & TSDeclaration, lineParser: LineParser): IToken[] {
         const declarationProcessor = declarationProcessors[type];
         if (declarationProcessor) {
             const subDeclarations = declarationProcessor(declaration)
                 .map((declaration1) => declaration1 as (Declaration & TSDeclaration))
                 .filter((declaration1) => declaration1)
                 .map((declaration1) => {
+                    declaration1.path = declaration.path;
+                    const linePosition = lineParser.findLine(declaration1.start);
+                    if (!!linePosition) {
+                        declaration1.line = linePosition.line;
+                        declaration1.column = linePosition.column;
+                    }
                     declaration1.fragment = declaration.fragment.slice(
                         declaration1.start - declaration.start,
                         declaration1.end - declaration.start);
@@ -66,10 +81,11 @@ export default class Parser {
                 });
             return subDeclarations.reduce(
                 (declarations, declaration1) =>
-                    [...declarations, ...this.processDeclaration(declaration1)], []);
+                    [...declarations, ...this.processDeclaration(declaration1, lineParser)], []);
         } else {
             // tslint:disable-next-line:no-console
-            console.log(`Missing declaration processor for ${type}: ${util.inspect(declaration)}`);
+            console.log(`Missing declaration processor for ${type}: ${declaration.path}:${declaration.line}:${declaration.column}
+                ${util.inspect(declaration)}`);
             return [];
         }
     }
