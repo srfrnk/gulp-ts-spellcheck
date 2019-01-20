@@ -2,7 +2,7 @@ import IToken from './token';
 import {
     Declaration as TSDeclaration, InterfaceDeclaration, PropertyDeclaration, FunctionDeclaration,
     VariableDeclaration, ClassDeclaration, MethodDeclaration, ConstructorDeclaration, DefaultDeclaration,
-    GetterDeclaration, EnumDeclaration, TypeAliasDeclaration,
+    GetterDeclaration, EnumDeclaration, TypeAliasDeclaration, ObjectBoundParameterDeclaration,
 } from 'typescript-parser';
 import Declaration from './declaration';
 
@@ -101,6 +101,14 @@ const tokenProcessors: { [key: string]: (declaration: Declaration & TSDeclaratio
     },
 
     TypeAliasDeclaration: (declaration: TypeAliasDeclaration & Declaration) => {
+        const token: IToken = {
+            path: '',
+            name: declaration.name,
+            position: declaration.start + declaration.fragment.indexOf(declaration.name),
+        };
+        return [token];
+    },
+    ObjectBoundParameterDeclaration: (declaration: ObjectBoundParameterDeclaration & Declaration) => {
         const token: IToken = {
             path: '',
             name: declaration.name,
