@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.7"></a>
+## [1.3.7](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.6...v1.3.7) (2019-01-20)
+
+
+### Bug Fixes
+
+* fixed [#3](https://github.com/srfrnk/gulp-ts-spellcheck/issues/3) ([8198945](https://github.com/srfrnk/gulp-ts-spellcheck/commit/8198945))
+* fixed [#4](https://github.com/srfrnk/gulp-ts-spellcheck/issues/4) ([1b83a3c](https://github.com/srfrnk/gulp-ts-spellcheck/commit/1b83a3c))
+* fixed [#5](https://github.com/srfrnk/gulp-ts-spellcheck/issues/5) ([00732ef](https://github.com/srfrnk/gulp-ts-spellcheck/commit/00732ef))
+* jest fixed ([5e97846](https://github.com/srfrnk/gulp-ts-spellcheck/commit/5e97846))
+
+
+
 <a name="1.3.6"></a>
 ## [1.3.6](https://github.com/srfrnk/gulp-ts-spellcheck/compare/v1.3.5...v1.3.6) (2018-10-14)
 
